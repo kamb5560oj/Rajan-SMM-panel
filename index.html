@@ -20,16 +20,16 @@ input{width:95%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:10
 <div class="card">
 <h2>1. Service Select Karo</h2>
 
-<div class="service" onclick="selectService('Instagram Likes',5,this)">
-👍 Instagram Likes<br><span class="price">₹5 = 1000 Likes</span>
+<div class="service" onclick="selectService('Instagram Likes',this)">
+👍 Instagram Likes<br><span class="price">₹20 = 500 Likes</span>
 </div>
 
-<div class="service" onclick="selectService('Instagram Followers',10,this)">
-👤 Instagram Followers<br><span class="price">₹10 = 1000 Followers</span>
+<div class="service" onclick="selectService('Instagram Followers',this)">
+👤 Instagram Followers<br><span class="price">₹50 = 100 Followers</span>
 </div>
 
-<div class="service" onclick="selectService('Reel Views',1,this)">
-👁️ Reel Views<br><span class="price">₹1 = 2000 Views</span>
+<div class="service" onclick="selectService('Reel Views',this)">
+👁️ Reel Views<br><span class="price">₹5 = 4000 Views</span>
 </div>
 </div>
 
@@ -43,41 +43,48 @@ input{width:95%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:10
 <h2>2. Order Details</h2>
 <p id="selected-text" style="font-weight:bold;color:green"></p>
 <input type="text" id="link" placeholder="Apni Reel / Profile Ka Link Yaha Paste Karo">
-<input type="number" id="qty" placeholder="Quantity" value="2000" oninput="calc()">
+<input type="number" id="qty" placeholder="Quantity" value="500" oninput="calc()">
 <input type="text" id="utr" placeholder="Payment UTR / Transaction ID Daalo">
-<h3>Total Price: <span id="total" style="color:green">₹1.00</span></h3>
+<h3>Total Price: <span id="total" style="color:green">₹20.00</span></h3>
 <button class="btn" onclick="order()">✅ Payment Kar Diya - Order on WhatsApp</button>
 <p style="text-align:center;color:#888">Order dabate hi WhatsApp khulega, bas Send dabana hai</p>
 </div>
 
 <script>
-let rate = 1;
 let sName = "";
-function selectService(name, price, el){
-  sName = name; rate = price;
+let MY_NUMBER = "919411035487";
+
+function selectService(name, el){
+  sName = name;
   document.querySelectorAll('.service').forEach(s=>s.classList.remove('active'));
   el.classList.add('active');
   document.getElementById('order-details').style.display='block';
   document.getElementById('selected-text').innerText = "Selected: " + name;
+  if(name=='Instagram Likes') document.getElementById('qty').value = 500;
+  if(name=='Instagram Followers') document.getElementById('qty').value = 100;
+  if(name=='Reel Views') document.getElementById('qty').value = 4000;
   calc();
-  // Sidha Order Details pe le jayega
   document.getElementById('order-details').scrollIntoView({behavior:'smooth'});
 }
+
 function calc(){
   let q = document.getElementById('qty').value || 0;
-  let total = (q/1000)*rate;
-  // Reel Views ke liye alag rate
-  if(sName=='Reel Views'){ total = (q/2000)*1; }
+  let total = 0;
+  if(sName=='Instagram Likes'){ total = (q/500)*20; }
+  if(sName=='Instagram Followers'){ total = (q/100)*50; }
+  if(sName=='Reel Views'){ total = (q/4000)*5; }
   document.getElementById('total').innerText = "₹" + total.toFixed(2);
 }
+
 function order(){
   let link = document.getElementById('link').value;
   let qty = document.getElementById('qty').value;
   let utr = document.getElementById('utr').value;
   let total = document.getElementById('total').innerText;
+  if(!sName){ alert("Pehle Service Select Karo bhai!"); return; }
   if(!link || !utr){ alert("Link aur UTR dono daalo bhai!"); return; }
-  let msg = "NEW ORDER 🔥%0A Service: "+sName+"%0A Link: "+link+"%0A Quantity: "+qty+"%0A Total: "+total+"%0A UTR: "+utr+"%0A Payment Done ✅";
-  window.open("https://wa.me/91XXXXXXXXXX?text="+msg, "_blank");
+  let msg = "NEW ORDER 🔥\nService: "+sName+"\nLink: "+link+"\nQuantity: "+qty+"\nTotal: "+total+"\nUTR: "+utr+"\nPayment Done ✅";
+  window.open("https://wa.me/"+MY_NUMBER+"?text="+encodeURIComponent(msg), "_blank");
 }
 </script>
 </body>
