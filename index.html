@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rajan SMM - Cheapest Panel</title>
+<style>
+body{font-family:Arial;background:#f2f2f2;margin:0;padding:10px}
+.box{background:white;border-radius:15px;padding:15px;margin-bottom:12px;box-shadow:0 2px 8px #ddd}
+h2{margin:0} .price{color:green;font-weight:bold}
+input,select{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:10px;font-size:16px}
+.btn{background:#25D366;color:white;border:none;padding:14px;width:100%;border-radius:12px;font-size:17px;font-weight:bold}
+img{width:100%;border-radius:12px;max-width:320px}
+.service{border:1px solid #eee;border-radius:12px;padding:12px;margin:8px 0;cursor:pointer}
+.service.active{border:2px solid #6a1bff;background:#f5f0ff}
+</style>
+</head>
+<body>
+
+<div class="box" style="text-align:center">
+<h2>🔥 RAJAN SMM PANEL 🔥</h2>
+<p>Cheapest Rates In India | Instant Start | Bina API Wala Manual Panel</p>
+</div>
+
+<div class="box" style="text-align:center">
+<h3>💳 Pay Here - Scan QR</h3>
+<p>1. Pehle QR Scan Karke Pay Karo<br>2. Neeche UTR Daal Ke Order Karo</p>
+<img src="qr.jpg">
+<p><b>R_k gamer</b><br>Punjab National Bank 1522</p>
+</div>
+
+<div class="box">
+<h3>1. Service Select Karo</h3>
+
+<div class="service active" onclick="selectService(this,'Reel Views',0.5)">
+<b>👁️ Instagram Reel Views</b><br>
+<span class="price">₹1 = 2000 Views</span> | Superfast 🔥
+</div>
+
+<div class="service" onclick="selectService(this,'Instagram Likes',5)">
+<b>❤️ Instagram Likes</b><br>
+<span class="price">₹5 = 1000 Likes</span>
+</div>
+
+<div class="service" onclick="selectService(this,'Instagram Followers',10)">
+<b>👤 Instagram Followers</b><br>
+<span class="price">₹10 = 1000 Followers</span>
+</div>
+</div>
+
+<div class="box">
+<h3>2. Order Details</h3>
+<input id="link" placeholder="Apni Reel / Profile Ka Link Yaha Paste Karo">
+<input id="qty" type="number" value="2000" oninput="calc()" placeholder="Quantity">
+<input id="utr" placeholder="Payment UTR / Transaction ID Daalo">
+<p>Total Price: <b id="total" style="font-size:22px;color:green">₹1</b></p>
+<button class="btn" onclick="order()">✅ Payment Kar Diya - Order on WhatsApp</button>
+<p style="text-align:center;font-size:13px;color:#888">Order dabate hi WhatsApp khulega, bas Send dabana hai</p>
+</div>
+
+<script>
+let pricePer1000 = 0.5;
+let serviceName = "Reel Views";
+function selectService(el,name,price){
+  document.querySelectorAll('.service').forEach(s=>s.classList.remove('active'));
+  el.classList.add('active');
+  serviceName=name; pricePer1000=price; calc();
+}
+function calc(){
+  let q=document.getElementById('qty').value||0;
+  let total=(q/1000)*pricePer1000;
+  document.getElementById('total').innerText="₹"+total.toFixed(2);
+}
+function order(){
+  let link=document.getElementById('link').value;
+  let qty=document.getElementById('qty').value;
+  let utr=document.getElementById('utr').value;
+  let total=document.getElementById('total').innerText;
+  if(!link||!utr){alert("Link aur UTR dono daalo bhai!");return;}
+  let number="919411035487";
+  let msg="NEW ORDER 🔥%0A%0AService: "+serviceName+"%0ALink: "+link+"%0AQuantity: "+qty+"%0ATotal: "+total+"%0AUTR: "+utr+"%0A%0APayment Done ✅";
+  window.open("https://wa.me/"+number+"?text="+msg);
+}
+calc();
+</script>
+</body>
+</html>
